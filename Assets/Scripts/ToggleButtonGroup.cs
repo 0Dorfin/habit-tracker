@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections.Generic;
 
 public class ToggleButtonGroup : MonoBehaviour
 {
     public List<ToggleButton> buttons;
+    public ToggleButton selectedButton; // Nuevo
 
     public void OnButtonSelected(ToggleButton selected)
     {
@@ -13,6 +12,16 @@ public class ToggleButtonGroup : MonoBehaviour
         {
             if (btn != selected)
                 btn.Deselect();
+        }
+
+        selectedButton = selected;
+    }
+
+    public void UpdateSelectedColor(Color newColor)
+    {
+        if (selectedButton != null)
+        {
+            selectedButton.UpdateColor(newColor);
         }
     }
 }

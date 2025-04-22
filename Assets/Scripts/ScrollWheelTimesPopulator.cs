@@ -4,18 +4,18 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class ScrollWheelPopulator : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+public class ScrollWheelTimesPopulator : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [Header("Referencias")]
     public RectTransform contentParent;
     public TMP_Text textTemplate;
     public RectTransform viewport;
     public ScrollRect scrollRect;
-    private int paddingTop = 80; // O el valor que tengas configurado
+    private int paddingTop = 80;
 
 
     [Header("Configuración")]
-    public int maxValue = 23;
+    public int maxValue = 100;
     public float itemHeight = 40f;
 
     private bool isDragging = false;
@@ -30,7 +30,7 @@ public class ScrollWheelPopulator : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
     void PopulateScroll()
     {
-        for (int i = 0; i <= maxValue; i++)
+        for (int i = 1; i <= maxValue; i++)
         {
             TMP_Text newItem = Instantiate(textTemplate, contentParent);
             newItem.text = i.ToString("D2");
@@ -42,7 +42,6 @@ public class ScrollWheelPopulator : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
     void SnapToInitial()
     {
-        // Pone el primer ítem (00) alineado con el centro del viewport
         contentParent.anchoredPosition = new Vector2(0, -centerOffset + itemHeight * 0);
     }
 
@@ -86,12 +85,14 @@ public class ScrollWheelPopulator : MonoBehaviour, IBeginDragHandler, IEndDragHa
 
 
 
-    public int GetSelectedValue()
+    public string GetSelectedValue()
     {
         float yOffset = contentParent.anchoredPosition.y;
-        int index = Mathf.RoundToInt((yOffset + (viewport.rect.height / 2) - paddingTop) / itemHeight);
-        index = Mathf.Clamp(index, 0, maxValue);
-        return index;
+        int index = Mathf.RoundToInt(yOffset / itemHeight);
+        index = Mathf.Clamp(index, 0, maxValue - 1);
+        return (index + 1).ToString("D2");
     }
+
+
 
 }

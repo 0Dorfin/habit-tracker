@@ -31,4 +31,15 @@ public class ToggleButton : MonoBehaviour
         background.color = Color.white;
         text.color = Color.black;
     }
+
+    // Nuevo método para actualizar el color desde el grupo
+    public void UpdateColor(Color newColor)
+    {
+        if (isSelected)
+        {
+            background.color = newColor;
+            if (text != null)
+                text.color = Color.white;
+        }
+    }
 }
