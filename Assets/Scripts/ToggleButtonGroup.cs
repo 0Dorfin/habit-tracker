@@ -4,7 +4,9 @@ using System.Collections.Generic;
 public class ToggleButtonGroup : MonoBehaviour
 {
     public List<ToggleButton> buttons;
-    public ToggleButton selectedButton; // Nuevo
+    public ToggleButton selectedButton;
+
+    public ToggleButton SelectedButton => selectedButton;
 
     public void OnButtonSelected(ToggleButton selected)
     {
